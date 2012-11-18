@@ -4,7 +4,7 @@ gem 'rake'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
-gem 'rack-contrib', :git => 'git@github.com:rack/rack-contrib.git'
+gem 'rack-contrib'
 gem 'yajl-ruby', :require => "yajl"
 gem 'json'
 
