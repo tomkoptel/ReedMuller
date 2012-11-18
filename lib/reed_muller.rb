@@ -86,7 +86,6 @@ class ReedMuller
 
 end
 
-ReedMuller.new(3).calculate()
 =begin
 
 RM(2)
