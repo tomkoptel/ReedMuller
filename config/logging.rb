@@ -8,7 +8,7 @@ logfile = File.new("log/#{environment}.log", 'a+')
 logfile.sync = true
 Log ||= Logger.new(logfile)
 
-Log.level = environment == :production ? Logger::WARN : Logger::DEBUG
+Log.level = Logger::DEBUG
 Log.datetime_format = "%Y-%m-%d %H:%M:%S.%L"
 
 unless environment == :test
