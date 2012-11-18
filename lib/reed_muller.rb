@@ -81,7 +81,7 @@ class ReedMuller
       end
     end
 
-    new_hash
+    Array.new(new_hash.values)
   end
 
 end
