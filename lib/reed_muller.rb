@@ -22,17 +22,20 @@ class ReedMuller
       result_hash[position] = result_bytes
     end
 
-    result_hash
+    get_vectors(result_hash)
   end
 
-  def get_result_bytes(positions)
-    bytes = Array.new(rate, 0)
-    positions.each do |position|
-      bytes.each_with_index do |byte, index|
-        bytes[index] = 1 if index == position
-      end
+  private
+
+  def get_weights
+    set = []
+    rate.times do |index|
+      value = 2 ** index
+      set.push value
     end
-    bytes.unshift(1)
+    weights = {}
+    set.each { |el| weights[el.to_s] = el }
+    weights
   end
 
   def positions_subset(num)
@@ -55,17 +58,30 @@ class ReedMuller
     positions_subset.map { |position| positions.index(position) }.compact
   end
 
-  private
-
-  def get_weights
-    set = []
-    rate.times do |index|
-      value = 2 ** index
-      set.push value
+  def get_result_bytes(positions)
+    bytes = Array.new(rate, 0)
+    positions.each do |position|
+      bytes.each_with_index do |byte, index|
+        bytes[index] = 1 if index == position
+      end
     end
-    weights = {}
-    set.each { |el| weights[el.to_s] = el }
-    weights
+    bytes.unshift(1)
+  end
+
+  def get_vectors(result_hash)
+    values = result_hash.values
+    length = values.first.length
+
+    new_hash = {}
+    length.times do |index|
+      new_hash[index.to_s] = []
+
+      values.each do |bytes|
+        new_hash[index.to_s].push bytes.shift
+      end
+    end
+
+    new_hash
   end
 
 end
